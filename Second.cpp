@@ -9,7 +9,6 @@ public:
 	int get_sides_count() {
 		return _sides_count;
 	}
-
 };
 class triangle : public figure {
 protected:
@@ -23,7 +22,6 @@ public:
 		B = degree_B;
 		C = degree_C;
 		_sides_count = 3;
-
 	}
 
 	int get_degrees_A() {
@@ -45,9 +43,9 @@ public:
 		return c;
 	}
 	void print_info(triangle* triangle) {
-		std::cout << "Ñòîðîíû: a = " << triangle->get_sides_a() << " b = " << triangle->get_sides_b()
+		std::cout << "Стороны: a = " << triangle->get_sides_a() << " b = " << triangle->get_sides_b()
 			<< " c = " << triangle->get_sides_c() << std::endl;
-		std::cout << "Óãëû : A = " << triangle->get_degrees_A() << " B = " << triangle->get_degrees_B()
+		std::cout << "Углы : A = " << triangle->get_degrees_A() << " B = " << triangle->get_degrees_B()
 			<< " C = " << triangle->get_degrees_C() << std::endl;
 	}
 };
@@ -56,11 +54,11 @@ public:right_triangle(int a, int b, int c, int A, int B) : triangle(a,b,c,A,B,90
 	}
 };
 class isosceles_triangle : public triangle {
-public:isosceles_triangle(int a, int b, int c,int A, int B, int C)  {
+public:isosceles_triangle(int a, int b, int c,int A, int B, int C) : triangle(a, b, c, A, B, C) {
 	}
 };
 class equilateral_triangle : public triangle {
-public:equilateral_triangle(int a, int A) {
+public:equilateral_triangle(int a, int b, int c, int A, int B, int C) : triangle(a, b, c, A, B, C) {
 	}
 };
 class quadrangle : public figure {
@@ -105,68 +103,68 @@ public:
 		return d;
 	}
 	void print_info(quadrangle* quard) {
-		std::cout << "Ñòîðîíû: a = " << quard->get_sides_a() << " b = " << quard->get_sides_b()
+		std::cout << "Стороны: a = " << quard->get_sides_a() << " b = " << quard->get_sides_b()
 			<< " c = " << quard->get_sides_c() << " d = " << quard->get_sides_d() << std::endl;
-		std::cout << "Óãëû : A = " << quard->get_degrees_A() << " B = " << quard->get_degrees_B()
+		std::cout << "Углы : A = " << quard->get_degrees_A() << " B = " << quard->get_degrees_B()
 			<< " C = " << quard->get_degrees_C() << " D = " << quard->get_degrees_D() << std::endl;
 	}
 };
 class rectangle :public quadrangle {
 public:
-	rectangle(int side_a, int side_b) : quadrangle(side_a, side_b, side_a, side_b, 90,90,90,90) {
-
+	rectangle(int side_a, int side_b, int side_c, int side_d, int A, int B, int C, int D)
+		: quadrangle(side_a, side_b, side_c, side_d, A,B,C,D) {
 	}
 };
 class square : public quadrangle {
 public:
-	square(int a) : quadrangle(a, a, a, a, 90, 90, 90, 90) {
-
+	square(int side_a, int side_b, int side_c, int side_d, int A, int B, int C, int D)
+		: quadrangle(side_a, side_b, side_c, side_d, A, B, C, D) {
 	}
 };
 class parallelogram : public quadrangle {
 public:
-	parallelogram(int a, int b, int A, int B) : quadrangle(a,b,a,b,A,B,A,B){
-
+	parallelogram(int side_a, int side_b, int side_c, int side_d, int A, int B, int C, int D)
+		: quadrangle(side_a, side_b, side_c, side_d, A, B, C, D){
 	}
 };
 class rhombus : public quadrangle {
-public: rhombus(int a, int A, int B) : quadrangle(a,a,a,a,A,B,A,B){
-
+public: rhombus(int side_a, int side_b, int side_c, int side_d, int A, int B, int C, int D)
+	: quadrangle(side_a, side_b, side_c, side_d, A, B, C, D){
 }
 };
 int main() {
 	SetConsoleOutputCP(1251);
 	SetConsoleCP(1251);
 	figure Figure;
-	right_triangle RightTri(3,4,5,53,37);
+	right_triangle RightTri(3, 4, 5, 53, 37);
 	isosceles_triangle IsosTri(5, 5, 3, 70, 70, 40);
-	equilateral_triangle EquiTri(5, 60);
+	equilateral_triangle EquiTri(5, 5, 5, 60, 60, 60);
 	triangle Tri;
 	quadrangle Quard;
-	rectangle Rect(4, 8);
-	square Square(7);
-	parallelogram Paral(20, 25, 40, 50);
-	rhombus Rhombus(35, 35, 65);
-	std::cout << "Êîëè÷åñòâî ñòîðîí: " << std::endl << "Ôèãóðà: " << Figure.get_sides_count()
-		<< std::endl << "Òðåóãîëüíèê: " << Tri.get_sides_count() << std::endl << "×åòûðåõóãîëüíèêè: "
+	rectangle Rect(4, 8, 4, 8, 90, 90, 90, 90);
+	square Square(7, 7, 7, 7, 90, 90, 90, 90);
+	parallelogram Paral(20, 25, 20, 25, 40, 50, 40, 50);
+	rhombus Rhombus(25,25,25,25,75,65,75,65);
+	std::cout << "Количество сторон: " << std::endl << "Фигура: " << Figure.get_sides_count()
+		<< std::endl << "Треугольник: " << Tri.get_sides_count() << std::endl << "Четырехугольники: "
 		<< Quard.get_sides_count() << std::endl << std::endl;
-	std::cout << "Òðåóãîëüíèê: " << std::endl;
+	std::cout << "Треугольник: " << std::endl;
 	Tri.print_info(&Tri); std::cout << std::endl;
-	std::cout << "Ïðÿìîóãîëüíûé òðåóãîëüíèê: " << std::endl;
+	std::cout << "Прямоугольный треугольник: " << std::endl;
 	Tri.print_info(&RightTri); std::cout << std::endl;
-	std::cout << "Ðàâíîáåäðåííûé òðåóãîëüíèê " << std::endl;
+	std::cout << "Равнобедренный треугольник " << std::endl;
 	Tri.print_info(&IsosTri); std::cout << std::endl;
-	std::cout << "Ðàâíîñòîðîííèé òðåóãîëüíèê " << std::endl;
+	std::cout << "Равносторонний треугольник " << std::endl;
 	Tri.print_info(&EquiTri); std::cout << std::endl;
-	std::cout << "×åòûðåõóãîëüíèê: " << std::endl;
+	std::cout << "Четырехугольник: " << std::endl;
 	Quard.print_info(&Quard); std::cout << std::endl;
-	std::cout << "Ïðÿìîóãîëüíèê: " << std::endl;
+	std::cout << "Прямоугольник: " << std::endl;
 	Rect.print_info(&Rect); std::cout << std::endl;
-	std::cout << "Êâàäðàò: " << std::endl;
+	std::cout << "Квадрат: " << std::endl;
 	Square.print_info(&Square); std::cout << std::endl;
-	std::cout << "Ïàðàëëåëîãðàìì: " << std::endl;
+	std::cout << "Параллелограмм: " << std::endl;
 	Paral.print_info(&Paral); std::cout << std::endl;
-	std::cout << "Ðîìá: " << std::endl;
+	std::cout << "Ромб: " << std::endl;
 	Rhombus.print_info(&Rhombus); std::cout << std::endl;
 	return EXIT_SUCCESS;
 }
